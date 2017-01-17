@@ -1,0 +1,98 @@
+# you probably want to 'snapcraft register <name>'
+name: gpio-tester 
+
+# just for humans, typically '1.2+git' or '1.3.2'
+version: '0.1' 
+
+# 78 char long summary
+summary: Snap for raspberry pi 3 gpio testing.
+
+# The description for the snap, this can and is expected to be a longer explanation for the snap.
+description: |
+  Simple snap to test raspberry pi 3 GPIO.
+  Can:
+    - import and export gpio
+    - get and set gpio direction
+    - get and set gpio value
+
+# The type of confinement supported by the snap. Can be “strict” , “devmode” or “classic”. 
+# use 'strict' once you have the right plugs and slots
+confinement: devmode 
+
+# This defines the quality grade of the snap. 
+# It can be either “devel” (i.e. a development version of the snap, so not to be published to the “stable” or “candidate” channels) 
+# or “stable” (i.e. a stable release or release candidate, which can be released to all channels).
+# must be 'stable' to release into candidate/stable channels
+grade: candidate
+
+# A list of features that must be supported by the core in order for this snap to install.
+# assumes:
+
+# The epoch to which this revision of the snap belongs. This is used to specify upgrade paths. 
+# For example, 0 is epoch 0; 1* is the upgrade path from 0 to 1; 1 is epoch 1, etc.
+# epoch: 
+
+# Path to the icon that will be used for the snap.
+# icon:
+
+# Type of snap, defaults to "app". [ app | core | gadget | kernel ]
+type: app
+
+# List of architectures the snap may run on. Defaults to "all". [ all | amd64 | i386 | armhf ]
+architectures: [ armhf ]
+
+# use 'strict' once you have the right plugs and slotsc
+apps:
+  gpio-tester:
+    # Path to executable (relative to snap base) and arguments to use
+    # when this applica
+    command: gpio-tester
+
+    # List of plug names this application is associated with.
+    # When a plug is connected to one of these slots, this application
+    # will be granted the permissions specified for that interface.
+    # If attributes are required or the plug name does not match the
+    # interface name, more details must be declared under the top-level
+    # "plugs" field (see below).
+     plugs:
+       - gpio
+
+    # List of slot names this application is associated with.
+    # Same details as described above, but for slots.
+#     slots:
+#       - <slot name>
+
+    # If daemon is set, the command is a daemon to run as specified.
+    # See systemd documentation for details on those kinds.
+#     daemon: simple | forking | oneshot
+
+    # Optional command to use for stopping a daemon.
+#     stop-command: <command line>
+
+    # Optional time to wait for daemon to stop.
+#     stop-timeout: <n>ns | <n>us | <n>ms | <n>s | <n>m
+
+    # Optional command to run after daemon stops.
+#     post-stop-command: <command line>
+
+    # Condition to restart the daemon under. Defaults to on-failure.
+    # See the systemd.service manual on Restart for details.
+#     restart-condition: \
+#       on-failure | on-success | on-abnormal | on-abort | always | never
+
+    # Optional stream abstract socket name or socket path.
+    # When defined as a path, it should normally be in one of the snap
+    # writable directories. For an abstract socket it must start with
+    # @<snap name> or @<snap name>_.
+#     listen-stream: <path> | @<snap name> | @<snap name>_<suffix>
+
+    # Whether the daemon is socket activated. Defaults to false, and
+    # must be defined together with listen-stream if true.
+#     socket: true | false
+
+parts:
+  gpio-tester:
+    plugin: qmake
+    source: ./gpio-tester
+    after: [desktop-qt5]
+    qt-version: qt5
