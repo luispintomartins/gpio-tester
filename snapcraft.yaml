@@ -54,8 +54,7 @@ apps:
     # If attributes are required or the plug name does not match the
     # interface name, more details must be declared under the top-level
     # "plugs" field (see below).
-     plugs:
-       - gpio
+     plugs: [gpio]
 
     # List of slot names this application is associated with.
     # Same details as described above, but for slots.
